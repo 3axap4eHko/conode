@@ -12,16 +12,16 @@
 ## Table of Contents
 
   - [Features](#features)
-  - [Browser Support](#browser-support)
   - [Installing](#installing)
   - [Examples](#examples)
   - [License](#license)
 
 ## Features
 
-- Provides usefull wrappers of [AsyncLocalStorage](https://nodejs.org/api/async_context.html)
-- TypeScript support
-0
+- Provides useful wrappers of [AsyncLocalStorage](https://nodejs.org/api/async_context.html)
+- Supports TypeScript typings
+- Supports CommonJS and ES Module systems
+
 ## Installing
 
 Using yarn:

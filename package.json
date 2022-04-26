@@ -1,10 +1,21 @@
 {
   "name": "conode",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "0-Deps, simple and fast context library for NodeJS",
+  "type": "module",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "src/index.ts"
+  ],
+  "module": "build/index.js",
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc",
+    "convert-cjs": "node scripts/convert-cjs.js",
+    "build": "rm -rf build && yarn build:cjs && yarn build:mjs",
+    "build:cjs": "tsc -p tsconfig.cjs.json && yarn convert-cjs",
+    "build:mjs": "tsc -p tsconfig.mjs.json --declaration",
     "test": "jest"
   },
   "repository": {
@@ -33,6 +44,5 @@
     "jest": "27",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
-  },
-  "dependencies": {}
+  }
 }
