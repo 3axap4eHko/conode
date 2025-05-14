@@ -1,6 +1,6 @@
 # CoNode
 
-0-Deps, simple and fast context library for NodeJS
+0-deps async context management for Node.js
 
 [![Build Status][github-image]][github-url]
 [![NPM version][npm-image]][npm-url]
@@ -18,9 +18,10 @@
 
 ## Features
 
-- Provides useful wrappers of [AsyncLocalStorage](https://nodejs.org/api/async_context.html)
-- Supports TypeScript typings
-- Supports CommonJS and ES Module systems
+- Zero dependencies  
+- Lightweight wrappers around [AsyncLocalStorage](https://nodejs.org/api/async_hooks.html)  
+- Full TypeScript support  
+- Works in CommonJS and ES Module environments  
 
 ## Installing
 
@@ -38,6 +39,22 @@ yarn add conode
 
 ## Examples
 
+Quick start
+```typescript
+import { createContext } from 'conode';
+
+interface RequestContext { userId: string }
+
+const reqCtx = createContext<RequestContext>();
+
+async function handleRequest() {
+  console.log(reqCtx.getContext()?.userId);
+}
+
+await reqCtx.contextualize({ userId: 'abc123' }, handleRequest);
+// Logs: 'abc123'
+```
+
 Functional approach
 ```typescript
 import { createContext } from '../index';
@@ -51,7 +68,7 @@ const action = () => {
 auth.contextualize(jwt, action);
 ```
 
-Class approach
+Class approach with decorator
 ```typescript
 import { contextualize, Context } from '../index';
 
@@ -83,8 +100,8 @@ Copyright (c) 2022-present Ivan Zakharchanka
 [npm-url]: https://www.npmjs.com/package/conode
 [downloads-image]: https://img.shields.io/npm/dw/conode.svg?maxAge=43200
 [npm-image]: https://img.shields.io/npm/v/conode.svg?maxAge=43200
-[github-url]: https://github.com/3axap4eHko/conode/actions
-[github-image]: https://github.com/3axap4eHko/conode/actions/workflows/cicd.yml/badge.svg
+[github-url]: https://github.com/3axap4eHko/conode/actions/workflows/build.yml
+[github-image]: https://github.com/3axap4eHko/conode/actions/workflows/build.yml/badge.svg
 [codecov-url]: https://codecov.io/gh/3axap4eHko/conode
 [codecov-image]: https://codecov.io/gh/3axap4eHko/conode/branch/master/graph/badge.svg?token=JZ8QCGH6PI
 [codeclimate-url]: https://codeclimate.com/github/3axap4eHko/conode/maintainability
