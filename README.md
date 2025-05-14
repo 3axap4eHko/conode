@@ -83,7 +83,7 @@ Copyright (c) 2022-present Ivan Zakharchanka
 [npm-url]: https://www.npmjs.com/package/conode
 [downloads-image]: https://img.shields.io/npm/dw/conode.svg?maxAge=43200
 [npm-image]: https://img.shields.io/npm/v/conode.svg?maxAge=43200
-[github-url]: https://github.com/3axap4eHko/conode/actions/workflows/cicd.yml
+[github-url]: https://github.com/3axap4eHko/conode/actions
 [github-image]: https://github.com/3axap4eHko/conode/actions/workflows/cicd.yml/badge.svg
 [codecov-url]: https://codecov.io/gh/3axap4eHko/conode
 [codecov-image]: https://codecov.io/gh/3axap4eHko/conode/branch/master/graph/badge.svg?token=JZ8QCGH6PI

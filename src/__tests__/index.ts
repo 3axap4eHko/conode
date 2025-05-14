@@ -24,15 +24,15 @@ describe('test', () => {
       throw error;
     });
     expect(context.contextualize(value2, action3)).rejects.toStrictEqual(error);
-    expect(action3).toBeCalled();
-    expect(action2).not.toBeCalled();
-    expect(action1).not.toBeCalled();
+    expect(action3).toHaveBeenCalled();
+    expect(action2).not.toHaveBeenCalled();
+    expect(action1).not.toHaveBeenCalled();
 
     await context.contextualize(value2, action2);
-    expect(action2).toBeCalled();
-    expect(action1).not.toBeCalled();
+    expect(action2).toHaveBeenCalled();
+    expect(action1).not.toHaveBeenCalled();
     await context.contextualize(value1, action1);
-    expect(action1).toBeCalled();
+    expect(action1).toHaveBeenCalled();
 
   });
 
@@ -43,7 +43,7 @@ describe('test', () => {
       expect(Test.context).toStrictEqual(test);
     });
     await test.contextualize(action);
-    expect(action).toBeCalled();
+    expect(action).toHaveBeenCalled();
   });
 
   it('Should mixin class context', async () => {
@@ -54,7 +54,7 @@ describe('test', () => {
       expect(Test.context).toStrictEqual(test);
     });
     await test.contextualize(action);
-    expect(action).toBeCalled();
+    expect(action).toHaveBeenCalled();
   });
 
   it('Should decorate method', async () => {
@@ -63,7 +63,6 @@ describe('test', () => {
     });
 
     class Test extends Context() {
-
       @contextualize
       async run() {
         await action();
@@ -72,6 +71,6 @@ describe('test', () => {
 
     const test = new Test();
     await test.run();
-    expect(action).toBeCalled();
+    expect(action).toHaveBeenCalled();
   });
 });
