@@ -14,3 +14,4 @@ jobs:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
           test: |
             pnpm test
+            pnpm test:build
