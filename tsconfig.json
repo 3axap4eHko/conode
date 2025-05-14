@@ -8,7 +8,9 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext"
+    ],
     "rootDir": "src",
     "outDir": "build"
   },

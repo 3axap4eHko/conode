@@ -1,10 +1,15 @@
-import { createContext, Context, contextualize } from '../index';
+import { createContext, Contextable, contextualize } from '../index';
 
 describe('test', () => {
   it('Should create a context', async () => {
     const context = createContext();
     expect(context).toHaveProperty('contextualize');
     expect(context).toHaveProperty('getContext');
+  });
+
+  it('Should throw an error if context is not initialized', async () => {
+    const context = createContext();
+    expect(() => context.getContext()).toThrow();
   });
 
   it('Should execute in the context', async () => {
@@ -37,10 +42,10 @@ describe('test', () => {
   });
 
   it('Should mixin no class context', async () => {
-    class Test extends Context() { }
+    class Test extends Contextable() { }
     const test = new Test();
     const action = jest.fn(async () => {
-      expect(Test.context).toStrictEqual(test);
+      expect(Test.getContext()).toStrictEqual(test);
     });
     await test.contextualize(action);
     expect(action).toHaveBeenCalled();
@@ -48,29 +53,61 @@ describe('test', () => {
 
   it('Should mixin class context', async () => {
     class A {}
-    class Test extends Context(A) { }
+    class Test extends Contextable(A) { }
     const test = new Test();
     const action = jest.fn(async () => {
-      expect(Test.context).toStrictEqual(test);
+      expect(Test.getContext()).toStrictEqual(test);
     });
     await test.contextualize(action);
     expect(action).toHaveBeenCalled();
   });
 
-  it('Should decorate method', async () => {
+  it('Should decorate only methods', async () => {
     const action = jest.fn(async () => {
-      expect(Test.context).toStrictEqual(test);
+      expect(Test.getContext()).toStrictEqual(test);
     });
 
-    class Test extends Context() {
+    class Test extends Contextable() {
       @contextualize
-      async run() {
+      test: number = 10;
+
+      @contextualize
+      async run(): Promise<number> {
         await action();
+        return 0;
       }
     }
 
     const test = new Test();
-    await test.run();
+    const result = await test.run();
+    expect(result).toEqual(0);
     expect(action).toHaveBeenCalled();
+  });
+
+  it('Should decorate methods separately', async () => {
+    const action = jest.fn(async (expected: number) => {
+      expect(Test.getContext().value).toStrictEqual(expected);
+    });
+
+    class Test extends Contextable() {
+      constructor(
+        public readonly value: number
+      ){
+        super();
+      }
+      @contextualize
+      async run(value: number): Promise<number> {
+        await action(value);
+        return value;
+      }
+    }
+
+    const testA = new Test(0);
+    const testB = new Test(1);
+
+    await expect(testA.run(0)).resolves.toEqual(0);
+    expect(action).toHaveBeenCalled();
+    await expect(testB.run(1)).resolves.toEqual(1);
+    expect(action).toHaveBeenCalledTimes(2);
   });
 });

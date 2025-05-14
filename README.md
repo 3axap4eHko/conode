@@ -6,8 +6,6 @@
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
 [![Coverage Status][codecov-image]][codecov-url]
-[![Maintainability][codeclimate-image]][codeclimate-url]
-[![Snyk][snyk-image]][snyk-url]
 
 ## Table of Contents
 
@@ -70,14 +68,14 @@ auth.contextualize(jwt, action);
 
 Class approach with decorator
 ```typescript
-import { contextualize, Context } from '../index';
+import { contextualize, Contextable } from '../index';
 
 const action = () => {
   const service = Service.getContext();
   console.log(service.getSomething());
 };
 
-class Service extends Context() {
+class Service extends Contextable() {
   @contextualize
   async run() {
     await action();
@@ -104,8 +102,4 @@ Copyright (c) 2022-present Ivan Zakharchanka
 [github-image]: https://github.com/3axap4eHko/conode/actions/workflows/build.yml/badge.svg
 [codecov-url]: https://codecov.io/gh/3axap4eHko/conode
 [codecov-image]: https://codecov.io/gh/3axap4eHko/conode/branch/master/graph/badge.svg?token=JZ8QCGH6PI
-[codeclimate-url]: https://codeclimate.com/github/3axap4eHko/conode/maintainability
-[codeclimate-image]: https://api.codeclimate.com/v1/badges/0ba20f27f6db2b0fec8c/maintainability
-[snyk-url]: https://snyk.io/test/npm/conode/latest
-[snyk-image]: https://img.shields.io/snyk/vulnerabilities/github/3axap4eHko/conode.svg?maxAge=43200
 
