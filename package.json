@@ -1,6 +1,6 @@
 {
   "name": "conode",
-  "version": "0.2.109",
+  "version": "0.2.110",
   "description": "0-Deps, simple and fast context library for NodeJS",
   "type": "module",
   "main": "build/index.cjs",
